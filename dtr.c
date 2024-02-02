@@ -48,7 +48,7 @@ int main(){
     g(13,5);scanf("%d", &time_in_hrs);
     g(16,5);scanf("%d", &time_in_min);
     ti = time_in_hrs * 60 + time_in_min;
-    if (ti > 570 && ti < 721) //this well display if absent
+    if (ti > 570 && ti < 721) //this will display if absent
     {
         if(day == 1){
             g(2, 6);printf("Time out:\n");
