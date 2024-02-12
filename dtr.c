@@ -187,14 +187,122 @@ void timein(){
                 display_total();
             }
         }
+        //problem 7: 31 and 11:30 the time in with late must be executed first
         g(13, 6);scanf("%d", &time_out_hrs); 
         g(16, 6);scanf("%d", &time_out_min); 
         to = time_out_hrs * 60 + time_out_min;
         if (ti > 299 && ti < 721 && to > 569 && to < 721){
-            if (ti > 299 && ti < 451){
-                late = 0;
+            /*if (ti > 299 && ti < 451){
                 if (to > 689 && to < 721){
-                undertime = 0;            
+                    late = 0;
+                    undertime = 0;            
+                    undertime_in_hrs = undertime / 60; 
+                    undertime_in_min = undertime % 60;
+                    late_in_hrs = late / 60;
+                    late_in_min = late % 60;
+                    hrs_work = 240 - late - undertime;
+                    hrs_work_hrs = hrs_work / 60; 
+                    hrs_work_min = hrs_work % 60;  
+                            if (day == 1){
+                                g(10, 14);p("%d", time_in_hrs);
+                                g(11, 14);p(":");
+                                g(12, 14);p("%d", time_in_min);
+                                g(20, 14);p("%d", time_out_hrs);
+                                g(22, 14);p(":");
+                                g(23, 14);p("%d", time_out_min);
+                                g(31, 14);p("4");
+                                g(32, 14);p(":");
+                                g(33, 14);p("0");
+                                g(41, 14);p("%d", late_in_hrs);
+                                g(42, 14);p(":");
+                                g(43, 14);p("%d", late_in_min);
+                                g(51, 14);p("%d", undertime_in_hrs);
+                                g(52, 14);p(":");
+                                g(53, 14);p("%d", undertime_in_min); 
+                            }
+                            if (day == 2){
+                                g(10, 15);p("%d", time_in_hrs);
+                                g(11, 15);p(":");
+                                g(12, 15);p("%d", time_in_min);
+                                g(20, 15);p("%d", time_out_hrs);
+                                g(22, 15);p(":");
+                                g(23, 15);p("%d", time_out_min);
+                                g(31, 15);p("4");
+                                g(32, 15);p(":");
+                                g(33, 15);p("0");
+                                g(41, 15);p("%d", late_in_hrs);
+                                g(42, 15);p(":");
+                                g(43, 15);p("%d", late_in_min);
+                                g(51, 15);p("%d", undertime_in_hrs);
+                                g(52, 15);p(":");
+                                g(53, 15);p("%d", undertime_in_min); 
+                            }
+                            if (day == 3){
+                                g(10, 16);p("%d", time_in_hrs);
+                                g(11, 16);p(":");
+                                g(12, 16);p("%d", time_in_min);
+                                g(20, 16);p("%d", time_out_hrs);
+                                g(22, 16);p(":");
+                                g(23, 16);p("%d", time_out_min);
+                                g(31, 16);p("4");
+                                g(32, 16);p(":");
+                                g(33, 16);p("0");
+                                g(41, 16);p("%d", late_in_hrs);
+                                g(42, 16);p(":");
+                                g(43, 16);p("%d", late_in_min);
+                                g(51, 16);p("%d", undertime_in_hrs);
+                                g(52, 16);p(":");
+                                g(53, 16);p("%d", undertime_in_min); 
+                            }
+                            if (day == 4){
+                                g(10, 17);p("%d", time_in_hrs);
+                                g(11, 17);p(":");
+                                g(12, 17);p("%d", time_in_min);
+                                g(20, 17);p("%d", time_out_hrs);
+                                g(22, 17);p(":");
+                                g(23, 17);p("%d", time_out_min);
+                                g(31, 17);p("4");
+                                g(32, 17);p(":");
+                                g(33, 17);p("0");
+                                g(41, 17);p("%d", late_in_hrs);
+                                g(42, 17);p(":");
+                                g(43, 17);p("%d", late_in_min);
+                                g(51, 17);p("%d", undertime_in_hrs);
+                                g(52, 17);p(":");
+                                g(53, 17);p("%d", undertime_in_min); 
+                            }
+                            if (day == 5){
+                                g(10, 18);p("%d", time_in_hrs);
+                                g(11, 18);p(":");
+                                g(12, 18);p("%d", time_in_min);
+                                g(20, 18);p("%d", time_out_hrs);
+                                g(22, 18);p(":");
+                                g(23, 18);p("%d", time_out_min);
+                                g(31, 18);p("4");
+                                g(32, 18);p(":");
+                                g(33, 18);p("0");
+                                g(41, 18);p("%d", late_in_hrs);
+                                g(42, 18);p(":");
+                                g(43, 18);p("%d", late_in_min);
+                                g(51, 18);p("%d", undertime_in_hrs);
+                                g(52, 18);p(":");
+                                g(53, 18);p("%d", undertime_in_min); 
+                                display_total();
+                            }
+                        }
+                    }*/
+
+                if (ti >  299 && ti < 541) 
+                    if  (to < 691){
+                    late = ti - 450;
+                    undertime = 690 - to;
+                    undertime_in_hrs = undertime / 60; 
+                    undertime_in_min = undertime % 60;
+                    late_in_hrs = late / 60;
+                    late_in_min = late % 60;
+                    hrs_work = 240 - late - undertime;
+                    hrs_work_hrs = hrs_work / 60; 
+                    hrs_work_min = hrs_work % 60;                    
                     if (day == 1){
                         g(10, 14);p("%d", time_in_hrs);
                         g(11, 14);p(":");
@@ -202,26 +310,26 @@ void timein(){
                         g(20, 14);p("%d", time_out_hrs);
                         g(22, 14);p(":");
                         g(23, 14);p("%d", time_out_min);
-                        g(31, 14);p("4");
+                        g(31, 14);p("%d", hrs_work_hrs);
                         g(32, 14);p(":");
-                        g(33, 14);p("0");
-                        g(41, 14);p("0");
+                        g(33, 14);p("%d", hrs_work_min);
+                        g(41, 14);p("%d", late_in_hrs);
                         g(42, 14);p(":");
-                        g(43, 14);p("0");
-                        g(51, 14);p("0");
+                        g(43, 14);p("%d", late_in_min);
+                        g(51, 14);p("%d", undertime_in_hrs);
                         g(52, 14);p(":");
-                        g(53, 14);p("0"); 
+                        g(53, 14);p("%d", undertime_in_min); 
                     }
-                    if (day == 2){
+                    else if (day == 2){
                         g(10, 15);p("%d", time_in_hrs);
                         g(11, 15);p(":");
                         g(12, 15);p("%d", time_in_min);
                         g(20, 15);p("%d", time_out_hrs);
                         g(22, 15);p(":");
                         g(23, 15);p("%d", time_out_min);
-                        g(31, 15);p("4");
+                        g(31, 15);p("%d", hrs_work_hrs);
                         g(32, 15);p(":");
-                        g(33, 15);p("0");
+                        g(33, 15);p("%d", hrs_work_min);
                         g(41, 15);p("%d", late_in_hrs);
                         g(42, 15);p(":");
                         g(43, 15);p("%d", late_in_min);
@@ -229,16 +337,16 @@ void timein(){
                         g(52, 15);p(":");
                         g(53, 15);p("%d", undertime_in_min); 
                     }
-                    if (day == 3){
+                    else if (day == 3){
                         g(10, 16);p("%d", time_in_hrs);
                         g(11, 16);p(":");
                         g(12, 16);p("%d", time_in_min);
                         g(20, 16);p("%d", time_out_hrs);
                         g(22, 16);p(":");
                         g(23, 16);p("%d", time_out_min);
-                        g(31, 16);p("4");
+                        g(31, 16);p("%d", hrs_work_hrs);
                         g(32, 16);p(":");
-                        g(33, 16);p("0");
+                        g(33, 16);p("%d", hrs_work_min);
                         g(41, 16);p("%d", late_in_hrs);
                         g(42, 16);p(":");
                         g(43, 16);p("%d", late_in_min);
@@ -246,16 +354,16 @@ void timein(){
                         g(52, 16);p(":");
                         g(53, 16);p("%d", undertime_in_min); 
                     }
-                    if (day == 4){
+                    else if (day == 4){
                         g(10, 17);p("%d", time_in_hrs);
                         g(11, 17);p(":");
                         g(12, 17);p("%d", time_in_min);
                         g(20, 17);p("%d", time_out_hrs);
                         g(22, 17);p(":");
                         g(23, 17);p("%d", time_out_min);
-                        g(31, 17);p("4");
+                        g(31, 17);p("%d", hrs_work_hrs);
                         g(32, 17);p(":");
-                        g(33, 17);p("0");
+                        g(33, 17);p("%d", hrs_work_min);
                         g(41, 17);p("%d", late_in_hrs);
                         g(42, 17);p(":");
                         g(43, 17);p("%d", late_in_min);
@@ -263,16 +371,16 @@ void timein(){
                         g(52, 17);p(":");
                         g(53, 17);p("%d", undertime_in_min); 
                     }
-                    if (day == 5){
-                        g(10, 18);p("%d", time_in_hrs);
+                    else if (day == 5){
+                        g(10, 15);p("%d", time_in_hrs);
                         g(11, 18);p(":");
                         g(12, 18);p("%d", time_in_min);
                         g(20, 18);p("%d", time_out_hrs);
                         g(22, 18);p(":");
                         g(23, 18);p("%d", time_out_min);
-                        g(31, 18);p("4");
+                        g(31, 18);p("%d", hrs_work_hrs);
                         g(32, 18);p(":");
-                        g(33, 18);p("0");
+                        g(33, 18);p("%d", hrs_work_min);
                         g(41, 18);p("%d", late_in_hrs);
                         g(42, 18);p(":");
                         g(43, 18);p("%d", late_in_min);
@@ -280,110 +388,108 @@ void timein(){
                         g(52, 18);p(":");
                         g(53, 18);p("%d", undertime_in_min); 
                         display_total();
+                    }    
+                }
+            }
+         if (ti > 299 && ti < 451){
+                if (to > 689 && to < 721){
+                    late = 0;
+                    undertime = 0;            
+                    undertime_in_hrs = undertime / 60; 
+                    undertime_in_min = undertime % 60;
+                    late_in_hrs = late / 60;
+                    late_in_min = late % 60;
+                    hrs_work = 240 - late - undertime;
+                    hrs_work_hrs = hrs_work / 60; 
+                    hrs_work_min = hrs_work % 60;  
+                            if (day == 1){
+                                g(10, 14);p("%d", time_in_hrs);
+                                g(11, 14);p(":");
+                                g(12, 14);p("%d", time_in_min);
+                                g(20, 14);p("%d", time_out_hrs);
+                                g(22, 14);p(":");
+                                g(23, 14);p("%d", time_out_min);
+                                g(31, 14);p("4");
+                                g(32, 14);p(":");
+                                g(33, 14);p("0");
+                                g(41, 14);p("%d", late_in_hrs);
+                                g(42, 14);p(":");
+                                g(43, 14);p("%d", late_in_min);
+                                g(51, 14);p("%d", undertime_in_hrs);
+                                g(52, 14);p(":");
+                                g(53, 14);p("%d", undertime_in_min); 
+                            }
+                            if (day == 2){
+                                g(10, 15);p("%d", time_in_hrs);
+                                g(11, 15);p(":");
+                                g(12, 15);p("%d", time_in_min);
+                                g(20, 15);p("%d", time_out_hrs);
+                                g(22, 15);p(":");
+                                g(23, 15);p("%d", time_out_min);
+                                g(31, 15);p("4");
+                                g(32, 15);p(":");
+                                g(33, 15);p("0");
+                                g(41, 15);p("%d", late_in_hrs);
+                                g(42, 15);p(":");
+                                g(43, 15);p("%d", late_in_min);
+                                g(51, 15);p("%d", undertime_in_hrs);
+                                g(52, 15);p(":");
+                                g(53, 15);p("%d", undertime_in_min); 
+                            }
+                            if (day == 3){
+                                g(10, 16);p("%d", time_in_hrs);
+                                g(11, 16);p(":");
+                                g(12, 16);p("%d", time_in_min);
+                                g(20, 16);p("%d", time_out_hrs);
+                                g(22, 16);p(":");
+                                g(23, 16);p("%d", time_out_min);
+                                g(31, 16);p("4");
+                                g(32, 16);p(":");
+                                g(33, 16);p("0");
+                                g(41, 16);p("%d", late_in_hrs);
+                                g(42, 16);p(":");
+                                g(43, 16);p("%d", late_in_min);
+                                g(51, 16);p("%d", undertime_in_hrs);
+                                g(52, 16);p(":");
+                                g(53, 16);p("%d", undertime_in_min); 
+                            }
+                            if (day == 4){
+                                g(10, 17);p("%d", time_in_hrs);
+                                g(11, 17);p(":");
+                                g(12, 17);p("%d", time_in_min);
+                                g(20, 17);p("%d", time_out_hrs);
+                                g(22, 17);p(":");
+                                g(23, 17);p("%d", time_out_min);
+                                g(31, 17);p("4");
+                                g(32, 17);p(":");
+                                g(33, 17);p("0");
+                                g(41, 17);p("%d", late_in_hrs);
+                                g(42, 17);p(":");
+                                g(43, 17);p("%d", late_in_min);
+                                g(51, 17);p("%d", undertime_in_hrs);
+                                g(52, 17);p(":");
+                                g(53, 17);p("%d", undertime_in_min); 
+                            }
+                            if (day == 5){
+                                g(10, 18);p("%d", time_in_hrs);
+                                g(11, 18);p(":");
+                                g(12, 18);p("%d", time_in_min);
+                                g(20, 18);p("%d", time_out_hrs);
+                                g(22, 18);p(":");
+                                g(23, 18);p("%d", time_out_min);
+                                g(31, 18);p("4");
+                                g(32, 18);p(":");
+                                g(33, 18);p("0");
+                                g(41, 18);p("%d", late_in_hrs);
+                                g(42, 18);p(":");
+                                g(43, 18);p("%d", late_in_min);
+                                g(51, 18);p("%d", undertime_in_hrs);
+                                g(52, 18);p(":");
+                                g(53, 18);p("%d", undertime_in_min); 
+                                display_total();
+                            }
+                        }
                     }
-                }   
-            }
-        
-        if (ti > 299 && ti < 571){
-            late = ti - 450;
-            if(to > 570 && to < 721){
-                undertime = 690 - to;
-                undertime_in_hrs = undertime / 60; 
-                undertime_in_min = undertime % 60;
-                late_in_hrs = late / 60;
-                late_in_min = late % 60;
-                hrs_work = 240 - late - undertime;
-                hrs_work_hrs = hrs_work / 60; 
-                hrs_work_min = hrs_work % 60;                    
-                if (day == 1){
-                    g(10, 14);p("%d", time_in_hrs);
-                    g(11, 14);p(":");
-                    g(12, 14);p("%d", time_in_min);
-                    g(20, 14);p("%d", time_out_hrs);
-                    g(22, 14);p(":");
-                    g(23, 14);p("%d", time_out_min);
-                    g(31, 14);p("%d", hrs_work_hrs);
-                    g(32, 14);p(":");
-                    g(33, 14);p("%d", hrs_work_min);
-                    g(41, 14);p("%d", late_in_hrs);
-                    g(42, 14);p(":");
-                    g(43, 14);p("%d", late_in_min);
-                    g(51, 14);p("%d", undertime_in_hrs);
-                    g(52, 14);p(":");
-                    g(53, 14);p("%d", undertime_in_min); 
-                }
-                else if (day == 2){
-                    g(10, 15);p("%d", time_in_hrs);
-                    g(11, 15);p(":");
-                    g(12, 15);p("%d", time_in_min);
-                    g(20, 15);p("%d", time_out_hrs);
-                    g(22, 15);p(":");
-                    g(23, 15);p("%d", time_out_min);
-                    g(31, 15);p("%d", hrs_work_hrs);
-                    g(32, 15);p(":");
-                    g(33, 15);p("%d", hrs_work_min);
-                    g(41, 15);p("%d", late_in_hrs);
-                    g(42, 15);p(":");
-                    g(43, 15);p("%d", late_in_min);
-                    g(51, 15);p("%d", undertime_in_hrs);
-                    g(52, 15);p(":");
-                    g(53, 15);p("%d", undertime_in_min); 
-                }
-                else if (day == 3){
-                    g(10, 16);p("%d", time_in_hrs);
-                    g(11, 16);p(":");
-                    g(12, 16);p("%d", time_in_min);
-                    g(20, 16);p("%d", time_out_hrs);
-                    g(22, 16);p(":");
-                    g(23, 16);p("%d", time_out_min);
-                    g(31, 16);p("%d", hrs_work_hrs);
-                    g(32, 16);p(":");
-                    g(33, 16);p("%d", hrs_work_min);
-                    g(41, 16);p("%d", late_in_hrs);
-                    g(42, 16);p(":");
-                    g(43, 16);p("%d", late_in_min);
-                    g(51, 16);p("%d", undertime_in_hrs);
-                    g(52, 16);p(":");
-                    g(53, 16);p("%d", undertime_in_min); 
-                }
-                else if (day == 4){
-                    g(10, 17);p("%d", time_in_hrs);
-                    g(11, 17);p(":");
-                    g(12, 17);p("%d", time_in_min);
-                    g(20, 17);p("%d", time_out_hrs);
-                    g(22, 17);p(":");
-                    g(23, 17);p("%d", time_out_min);
-                    g(31, 17);p("%d", hrs_work_hrs);
-                    g(32, 17);p(":");
-                    g(33, 17);p("%d", hrs_work_min);
-                    g(41, 17);p("%d", late_in_hrs);
-                    g(42, 17);p(":");
-                    g(43, 17);p("%d", late_in_min);
-                    g(51, 17);p("%d", undertime_in_hrs);
-                    g(52, 17);p(":");
-                    g(53, 17);p("%d", undertime_in_min); 
-                }
-                else if (day == 5){
-                    g(10, 15);p("%d", time_in_hrs);
-                    g(11, 18);p(":");
-                    g(12, 18);p("%d", time_in_min);
-                    g(20, 18);p("%d", time_out_hrs);
-                    g(22, 18);p(":");
-                    g(23, 18);p("%d", time_out_min);
-                    g(31, 18);p("%d", hrs_work_hrs);
-                    g(32, 18);p(":");
-                    g(33, 18);p("%d", hrs_work_min);
-                    g(41, 18);p("%d", late_in_hrs);
-                    g(42, 18);p(":");
-                    g(43, 18);p("%d", late_in_min);
-                    g(51, 18);p("%d", undertime_in_hrs);
-                    g(52, 18);p(":");
-                    g(53, 18);p("%d", undertime_in_min); 
-                    display_total();
-                }    
-            }
-        }
-        }
     }
 }
 
