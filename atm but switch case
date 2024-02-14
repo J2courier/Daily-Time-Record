@@ -33,16 +33,15 @@ int main (){
             g(2, 9);p("Enter Choice: ");
             choice:
             g(20, 9);s("%d", &choice);
-            if (choice > 0 && choice < 5){
-                if (choice == 1){
+            switch (choice){
+                case 1:
                     system("cls"); //clrscr();
                     g(15, 2);p("BALANCE");
                     g(2, 3);p("Current Balance: %d", current_bal);
                     g(2, 4);p("Press Enter [Back to Main Menu] ");
                     getch();
                     goto ask;
-                }
-                else if (choice == 2){
+                case 2:
                     system("cls"); //clrscr();
                     g(15, 2);p("WITHDRAW");
                     g(2, 4);p("Enter Amount to Withdraw: ");
@@ -73,9 +72,8 @@ int main (){
                         g(28, 4);p("             ");
                         goto amount;
                         }
-                }
-                else if (choice == 3){
-                    system("cls"); //clrscr();
+                case 3:
+                     system("cls"); //clrscr();
                     g(15, 2);p("Deposit");
                     g(2, 4);p("Enter Amount to Deposit: ");
                      deposit_amount:
@@ -94,19 +92,17 @@ int main (){
                         g(28, 4);p("             ");
                         goto amount;
                     }
-                    
-                }
-                else if (choice == 4){
+                case 4:
                     system("cls"); //clrscr();
                     g(15, 2);p("EXITED.");
                     exit (0);
-                }
-            }
-            else{
-                g(2, 14);p("INVALID INPUT");
-            }
-        }
-        else {
+                
+                default:
+                    g(2,14);p("INVALID INPUT"); 
+                    
+                } 
+    }
+    else {
             if (ctr == 1){
                 g(2, 3);p("wrong password please try again! ATTEMP: %d", ctr);
                 ctr = ctr + 1;
@@ -125,9 +121,14 @@ int main (){
                 system("cls"); //clrscr();
                 g(15, 2);p("EXITED.");
                 exit (0);
-            }
+                }
             
+            }
         }
-
-    }
 }
+
+        
+
+     
+
+    
