@@ -1,35 +1,59 @@
 #include <stdio.h> //standard input output
-#include <conio.h> //console input output
 #include <windows.h> //need ni sa for gotoxy and clear screen purposes which is system("cls");
 #define g gotoxy//everytime mag gamit ta gotoxy 'g' nalng aton gamiton 
 #define p printf//same man diri 'p' nalang gamiton
 #define s scanf//as well as diri 's' man
 
 //global variables:
-int weeklySalary = 0, employee = 1, day = 5, description = 1, ti , to; //ti - time in, to - time out
-int  total_undertime = 0, salary_per_hrs = 100, total_late = 0, unfloat_hrs_work; //unfloat hours work gamiton tani sa pag calculate sang hours work sa modulo
+int weeklySalary = 0;
+int employee = 1;
+int day = 5;
+int description = 1;
+int ti;
+int to; //ti - time in, to - time out
+int total_undertime = 0;
+int salary_per_hrs = 100;
+int total_late = 0;
+int unfloat_hrs_work; //unfloat hours work gamiton tani sa pag calculate sang hours work sa modulo
 
 //this is float incase there's a decimal in result, para sure gid
-float hrs_work = 0, totalWorkhours = 0.0, total_weekly_salary = 0.0, weekly_salary = 0.0, total_work_hours = 0.0;
-int late = 0, undertime = 0, total_hrs_work = 0, final_hrs_work = 0;
+float hrs_work = 0;
+float totalWorkhours = 0.0;
+float total_weekly_salary = 0.0;
+float weekly_salary = 0.0;
+float total_work_hours = 0.0;
+int late = 0;
+int undertime = 0;
+int total_hrs_work = 0;
+int final_hrs_work = 0;
 
 //variable for conversion of total late && undertime
-int total_late_hrs, total_late_min;
-int total_undertime_hrs, total_undertime_min;
+int total_late_hrs;
+int total_late_min;
+int total_undertime_hrs;
+int total_undertime_min;
 
 //varibale for conversion of late && undertime
-int undertime_in_hrs, undertime_in_min;
-int late_in_hrs, late_in_min;
+int undertime_in_hrs;
+int undertime_in_min;
+int late_in_hrs;
+int late_in_min;
 
 //variable for conversion of time in time out
-int time_in_hrs, time_in_min, time_out_hrs, time_out_min;
+int time_in_hrs;
+int time_in_min;
+int time_out_hrs;
+int time_out_min;
 
 //variable for conversion of total hours work
-int total_hrs_work_min, total_hrs_work_hrs;
+int total_hrs_work_min;
+int total_hrs_work_hrs;
 
 //variable for conversion of hours work && weekly salary
-int hrs_work_hrs, hrs_work_min;
-int weekly_salary_hrs, weekly_salary_min;
+int hrs_work_hrs;
+int hrs_work_min;
+int weekly_salary_hrs;
+int weekly_salary_min;
 
 //variable for answer
 char ans;
