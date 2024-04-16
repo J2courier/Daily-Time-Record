@@ -77,7 +77,7 @@ void display_description(){//e display naton ang description sini
     g(55, 11);p("UNDERTIME");
 }
 
-void process(){ //? function to monitor all the process
+void    compute(){ //? function to monitor all the process
     undertime_in_hrs = undertime / 60;  //? e convert ta ang undertime nga minutes form into hours form
     undertime_in_min = undertime % 60;  //? e convert ta ang undertime nga minutes form into remaining minutes
 
@@ -241,8 +241,8 @@ void timeIn_timeOut(){
                     g(36, 11 + day);p("0:0");
                     g(46, 11 + day);p("4:0");
                     g(56, 11 + day);p("0:0");
-                    g(26, 2);printf("       ");
-                    g(29, 2);printf("       ");
+                    g(26, 2);printf("  ");
+                    g(29, 2);printf("  ");
                     g(2, 11 + day); p("DAY %d", day);
                     day++;
                     if (day == 6){
@@ -273,57 +273,53 @@ void timeIn_timeOut(){
                 late = 0;
                 undertime = 0;
                 hrs_work = 240;
-                process();
+                compute();
                 if (day < 6){
                     display_day();
                     day ++;
-                    if (day == 6){
-                        display_total();
+                    if (day == 6){  
                         break; //if mag break sya sa total display sya ma direct or ma continue
                     }
                     goto time_in_again;
                 }
             }
-            if (ti > 299 && ti < 451 && to > 300 && to < 690){ //scenario 2.1 no late with udertime
+            if (ti > 299 && ti < 451 && to > 300 && to < 690){ //scenario 3 no late with udertime
                 late = 0; 
                 undertime = 690 - to;
                 hrs_work = 240 - undertime - late;
-                process();
+                compute();
                 if (day < 6){
                     display_day();
                     day ++;
                     if (day == 6){
-                        display_total();
                         break;
                     }
                     goto time_in_again;
                 }
             }
-            if (ti > 299 && ti < 571 && to > 689 && to < 721){ //scenario 3.0 with late with no udertime
+            if (ti > 299 && ti < 571 && to > 689 && to < 721){ //scenario 4 with late with no udertime
                 late = ti - 450; 
                 undertime = 0;
                 hrs_work = 240 - late;
-                process();
+                compute();
                 if (day < 6){
                     display_day();
                     day ++;
                     if (day == 6){
-                        display_total();
                         break;
                     }
                     goto time_in_again;
                 }
             }
-            if (ti > 299 && ti < 571 && to > 300 && to < 690){ //scenario 3.1 late with udertime
+            if (ti > 299 && ti < 571 && to > 300 && to < 690){ //scenario 5 late with udertime
                 late = ti - 450; //240 is 4 hours
                 undertime = 690 - to;
                 hrs_work = 240 - undertime - late;
-                process();
+                compute();
                 if (day < 6){
                     display_day();
                     day ++;
                     if (day == 6){
-                        display_total();
                         break;
                     }
                     goto time_in_again;
@@ -345,7 +341,6 @@ int main(){
         display_description();
         timeIn_timeOut(); 
         display_total();
-        another_employee:
         reset(); 
         system("cls"); 
     } while (ans == 'Y' || ans == 'y');
