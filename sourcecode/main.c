@@ -61,20 +61,20 @@ void gotoxy(int x, int y){ //? function for gotoxy
     COORD coord;
     coord.X = x - 1;
     coord.Y = y - 1;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);//please memorized kay mawasak aton structure
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
 void display_description(){//e display naton ang description sini
-    g(25, 8);p("EMPLOYEE:");
-    g(35, 8);p("%d", employee);//this line may value sya kay interchangeable ina kay ga increment aton nga employee kung mag another employee kita
-    g(25, 9);p("PAYROLL FOR THE WEEK");
-    g(25, 10);p("DAILY TIME RECORD");
-    g(2, 13);p("days");
-    g(10, 13);p("AM IN");
-    g(20, 13);p("AM OUT");
-    g(30, 13);p("HRS WORK");
-    g(40, 13);p("LATES");
-    g(50, 13);p("UNDERTIME");
+    g(23, 6);p("EMPLOYEE:");
+    g(33, 6);p("%d", employee);//this line may value sya kay interchangeable ina kay ga increment aton nga employee kung mag another employee kita
+    g(23, 7);p("PAYROLL FOR THE WEEK");
+    g(23, 8);p("DAILY TIME RECORD");
+    g(2, 11);p("days");
+    g(15, 11);p("AM IN");
+    g(25, 11);p("AM OUT");
+    g(35, 11);p("HRS WORK");
+    g(45, 11);p("LATES");
+    g(55, 11);p("UNDERTIME");
 }
 
 void process(){ //? function to monitor all the process
@@ -106,26 +106,26 @@ void process(){ //? function to monitor all the process
 }
 
 void display_day (){
-    g(10, 13 + day);p("%d", time_in_hrs);
-    g(11, 13 + day);p(":");
-    g(12, 13 + day);p("%0.2d", time_in_min);
-    g(20, 13 + day);p("%0.2d", time_out_hrs);
-    g(22, 13 + day);p(":");
-    g(23, 13 + day);p("%0.2d", time_out_min);
-    g(31, 13 + day);p("%d", hrs_work_hrs);
-    g(32, 13 + day);p(":");
-    g(33, 13 + day);p("%d", hrs_work_min);
-    g(41, 13 + day);p("%d", late_in_hrs);
-    g(42, 13 + day);p(":");
-    g(43, 13 + day);p("%d", late_in_min);
-    g(51, 13 + day);p("%d", undertime_in_hrs);
-    g(52, 13 + day);p(":");
-    g(53, 13 + day);p("%d", undertime_in_min);
-    g(26, 5);p("  "); //? kada success nga input gina erase nya ang time in time out
-    g(29, 5);p("       ");
-    g(26, 6);p("  ");
-    g(29, 6);p("       ");
-    g(2, 13 + day); p("DAY %d", day);
+    g(15, 11 + day);p("%d", time_in_hrs);
+    g(16, 11 + day);p(":");
+    g(17, 11 + day);p("%0.2d", time_in_min);
+    g(25, 11 + day);p("%0.2d", time_out_hrs);
+    g(27, 11 + day);p(":");
+    g(28, 11 + day);p("%0.2d", time_out_min);
+    g(36, 11 + day);p("%d", hrs_work_hrs);
+    g(37, 11 + day);p(":");
+    g(38, 11 + day);p("%d", hrs_work_min);
+    g(46, 11 + day);p("%d", late_in_hrs);
+    g(47, 11 + day);p(":");
+    g(48, 11 + day);p("%d", late_in_min);
+    g(56, 11 + day);p("%d", undertime_in_hrs);
+    g(57, 11 + day);p(":");
+    g(58, 11 + day);p("%d", undertime_in_min);
+    g(26, 2);p("       "); //? kada success nga input gina erase nya ang time in time out
+    g(29, 2);p("       ");
+    g(26, 3);p("       ");
+    g(29, 3);p("       ");
+    g(2, 11 + day); p("DAY %d", day);
 }
 
 void display_total(){ //? function to display total
@@ -208,42 +208,42 @@ void timeIn_timeOut(){
     loop:
     for (day = 1; day < 6; day ++){
         time_in_again:
-        g(3, 5);p("HOURS IN :");
-        g(13, 5);p(" MINUTES IN");
-        g(2, 6);p("HOURS OUT :"); 
-        g(13, 6);p(" MINUTES OUT");
-        g(28, 5);p(":");//colon for time in
-        g(28, 6);p(":");// colon for time out
-        g(26, 5);s("%d", &time_in_hrs);
-        g(2, 7);p("                       ");
+        g(3, 2);p("HOURS IN :");
+        g(13, 2);p(" MINUTES IN");
+        g(2, 3);p("HOURS OUT :"); 
+        g(13, 3);p(" MINUTES OUT");
+        g(28, 2);p(":");//colon for time in
+        g(28, 3);p(":");// colon for time out
+        g(26, 2);s("%d", &time_in_hrs);
+        g(2, 5);p("                       ");
         if (time_in_hrs < 5 || time_in_hrs > 12){ //so nag add ko sang condition nga sa time in hour palang gina limit nya na ang invalid
-            g(26, 5);p("  ");
-            g(2, 7);p("INVALID INPUT");
+            g(26, 2);p("  ");
+            g(2, 4);p("INVALID INPUT");
             goto time_in_again;
         }
         timein_min_again:
-        g(29, 5);scanf("%d", &time_in_min);
-        g(2, 7);printf("                       ");
+        g(29, 2);scanf("%d", &time_in_min);
+        g(2, 4);printf("                       ");
         if (time_in_min < 0 || time_in_min > 59){ //same here gina limit nya ang invalid sa time in minutes 
-            g(29, 5);p("       ");
-            g(2, 7);p("INVALID INPUT");
+            g(29, 2);p("       ");
+            g(2, 4);p("INVALID INPUT");
             goto timein_min_again;
         }
-        g(2, 7);p("                 ");
+        g(2, 4);p("                 ");
         ti = time_in_hrs * 60 + time_in_min;
         if (time_in_hrs > 4 && time_in_hrs < 13 && time_in_min > -1 && time_in_min < 60){
             if (ti > 570 && ti < 721){ // scenario 1.0 if employee time in 9:31 and above which means ABSENT
                 if (day < 6){
-                    g(9, 13 + day);p("%0.2d", time_in_hrs);
-                    g(11, 13 + day);p(":"); 
-                    g(12, 13 + day);p("%0.2d", time_in_min);
-                    g(21, 13 + day);p("0:0");
-                    g(31, 13 + day);p("0:0");
-                    g(41, 13 + day);p("4:0");
-                    g(51, 13 + day);p("0:0");
-                    g(26, 5);printf("  ");
-                    g(29, 5);printf("       ");
-                    g(2, 13+day); p("DAY %d", day);
+                    g(14, 11 + day);p("%0.2d", time_in_hrs);
+                    g(16, 11 + day);p(":"); 
+                    g(17, 11 + day);p("%0.2d", time_in_min);
+                    g(26, 11 + day);p("0:0");
+                    g(36, 11 + day);p("0:0");
+                    g(46, 11 + day);p("4:0");
+                    g(56, 11 + day);p("0:0");
+                    g(26, 2);printf("       ");
+                    g(29, 2);printf("       ");
+                    g(2, 11 + day); p("DAY %d", day);
                     day++;
                     if (day == 6){
                         break;
@@ -253,19 +253,19 @@ void timeIn_timeOut(){
             } //if false ma procced sya sa time out
 
             time_out_again: //? goto 
-            g(26, 6);s("%d", &time_out_hrs); //? kuha sang input sa time out
-            g(2, 7);p("                       "); //? i-erase ang invalid input nga naka sulat
+            g(26, 3);s("%d", &time_out_hrs); //? kuha sang input sa time out
+            g(2, 4);p("                       "); //? i-erase ang invalid input nga naka sulat
             if (time_out_hrs < 5 || time_out_hrs > 12){//?sentinel para kung valid iya gin input nga numbers
-                g(26, 6);p("  ");
-                g(2, 7);p("INVALID INPUT");
+                g(26, 3);p("  ");
+                g(2, 4);p("INVALID INPUT");
                 goto time_out_again;
             }
             timeout_min_again:
-            g(29, 6);s("%d", &time_out_min);
-            g(2, 7);p("                       ");
+            g(29, 3);s("%d", &time_out_min);
+            g(2, 4);p("                       ");
             if (time_out_min < 0 || time_out_min > 59){//? same man di
-                g(29, 6);p("       ");
-                g(2, 7);p("INVALID INPUT");
+                g(29, 3);p("       ");
+                g(2, 4);p("INVALID INPUT");
                 goto timeout_min_again;
             }
             to = time_out_hrs * 60 + time_out_min;//? convert hrs form into minutes form
