@@ -121,7 +121,7 @@ void display_day (){
     g(51, 13 + day);p("%d", undertime_in_hrs);
     g(52, 13 + day);p(":");
     g(53, 13 + day);p("%d", undertime_in_min);
-    g(26, 5);p("  ");
+    g(26, 5);p("  "); //? kada success nga input gina erase nya ang time in time out
     g(29, 5);p("       ");
     g(26, 6);p("  ");
     g(29, 6);p("       ");
@@ -252,10 +252,10 @@ void timeIn_timeOut(){
                 } 
             } //if false ma procced sya sa time out
 
-            time_out_again:
-            g(26, 6);s("%d", &time_out_hrs);
-            g(2, 7);p("                       ");
-            if (time_out_hrs < 5 || time_out_hrs > 12){//so nag add ko sang condition nga sa time in hour palang gina limit nya na ang invalid
+            time_out_again: //? goto 
+            g(26, 6);s("%d", &time_out_hrs); //? kuha sang input sa time out
+            g(2, 7);p("                       "); //? i-erase ang invalid input nga naka sulat
+            if (time_out_hrs < 5 || time_out_hrs > 12){//?sentinel para kung valid iya gin input nga numbers
                 g(26, 6);p("  ");
                 g(2, 7);p("INVALID INPUT");
                 goto time_out_again;
@@ -263,13 +263,13 @@ void timeIn_timeOut(){
             timeout_min_again:
             g(29, 6);s("%d", &time_out_min);
             g(2, 7);p("                       ");
-            if (time_out_min < 0 || time_out_min > 59){//same here gina limit nya ang invalid sa time in minutes
+            if (time_out_min < 0 || time_out_min > 59){//? same man di
                 g(29, 6);p("       ");
                 g(2, 7);p("INVALID INPUT");
                 goto timeout_min_again;
             }
-            to = time_out_hrs * 60 + time_out_min;
-            if (ti > 299 && ti < 451 && to > 689 && to < 721 ){ // scenario 2.0 no late no undertime
+            to = time_out_hrs * 60 + time_out_min;//? convert hrs form into minutes form
+            if (ti > 299 && ti < 451 && to > 689){ // scenario 2.0 no late no undertime time in 300-450 = 5:00-7:30 and time out 11:30-12:00
                 late = 0;
                 undertime = 0;
                 hrs_work = 240;
@@ -284,7 +284,7 @@ void timeIn_timeOut(){
                     goto time_in_again;
                 }
             }
-            if (ti > 299 && ti < 451 && to > 569 && to < 721){ //scenario 2.1 no late with udertime
+            if (ti > 299 && ti < 451 && to > 300 && to < 690){ //scenario 2.1 no late with udertime
                 late = 0; 
                 undertime = 690 - to;
                 hrs_work = 240 - undertime - late;
@@ -314,7 +314,7 @@ void timeIn_timeOut(){
                     goto time_in_again;
                 }
             }
-            if (ti > 299 && ti < 571 && to > 569 && to < 721){ //scenario 3.1 late with udertime
+            if (ti > 299 && ti < 571 && to > 300 && to < 690){ //scenario 3.1 late with udertime
                 late = ti - 450; //240 is 4 hours
                 undertime = 690 - to;
                 hrs_work = 240 - undertime - late;
