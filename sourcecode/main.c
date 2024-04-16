@@ -7,7 +7,7 @@
 //global variables:
 int weeklySalary = 0;
 int employee = 1;
-int day = 5;
+int day = 1;
 int description = 1;
 int ti;
 int to; //ti - time in, to - time out
@@ -25,7 +25,7 @@ float total_work_hours = 0.0;
 int late = 0;
 int undertime = 0;
 int total_hrs_work = 0;
-int final_hrs_work = 0;
+//int final_hrs_work = 0;
 
 //variable for conversion of total late && undertime
 int total_late_hrs;
@@ -54,32 +54,78 @@ int hrs_work_hrs;
 int hrs_work_min;
 int weekly_salary_hrs;
 int weekly_salary_min;
-
 //variable for answer
 char ans;
+
 void gotoxy(int x, int y){ //? function for gotoxy
     COORD coord;
     coord.X = x - 1;
     coord.Y = y - 1;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);//please memorized kay mawasak aton structure
 }
-//? need ni ang reset function para ma reset ang value sa zero after sang isa ka employee
-void reset(){ 
-    weekly_salary = 0.0, total_work_hours = 0.0;
-    ti = 0, to = 0, weeklySalary = 0, total_late = 0; 
-    total_undertime = 0, salary_per_hrs = 100, unfloat_hrs_work;
-    hrs_work = 0, totalWorkhours = 0.0, total_weekly_salary = 0.0;
-    late = 0, undertime = 0, total_hrs_work = 0, final_hrs_work = 0;
-    total_hrs_work_hrs = 0, total_hrs_work_min = 0;
-    employee += 1;
+
+void display_description(){//e display naton ang description sini
+    g(25, 8);p("EMPLOYEE:");
+    g(35, 8);p("%d", employee);//this line may value sya kay interchangeable ina kay ga increment aton nga employee kung mag another employee kita
+    g(25, 9);p("PAYROLL FOR THE WEEK");
+    g(25, 10);p("DAILY TIME RECORD");
+    g(2, 13);p("days");
+    g(10, 13);p("AM IN");
+    g(20, 13);p("AM OUT");
+    g(30, 13);p("HRS WORK");
+    g(40, 13);p("LATES");
+    g(50, 13);p("UNDERTIME");
 }
 
-void erase (){ //? function for erase or tampering previous display
-    g(26, 5);printf("  ");
-    g(29, 5);printf("       ");
-    g(26, 6);printf("  ");
-    g(29, 6);printf("       ");
-    g(2, 7);printf("INVALID INPUT");
+void process(){ //? function to monitor all the process
+    undertime_in_hrs = undertime / 60;  //? e convert ta ang undertime nga minutes form into hours form
+    undertime_in_min = undertime % 60;  //? e convert ta ang undertime nga minutes form into remaining minutes
+
+    late_in_hrs = late / 60;//? e convert ta ang late nga minutes form into hours form
+    late_in_min = late % 60; //? e convert ta ang late nga minutes form into remaining minutes
+
+    unfloat_hrs_work = hrs_work; //? aton hrs_work nga variable is naka declare as float, gin name ta ang variable as unfloat means int ina sya kay kung float aton gamiton ga error sa modulo
+    hrs_work_hrs = hrs_work / 60; //? convertion man ni sa para ma display iya hrs work
+    hrs_work_min = unfloat_hrs_work % 60; //? unfloat_hrs_work is similar lang sa hrs_work data type lang nag lain
+
+    weekly_salary = (hrs_work / 60) * 100; //? process para ma kuha iya nga weekly salary, per day ini
+
+    total_weekly_salary = total_weekly_salary + weekly_salary;//? add ta ang total_weekly salary per day para after sang day 5 ma kuha ta ang total, no need to convert kay money ini
+    
+    total_hrs_work = total_hrs_work + hrs_work; //? add taman iya hrs work per day para after day 5 ma total naton iya hours work
+    total_hrs_work_hrs = total_hrs_work / 60;
+    total_hrs_work_min = total_hrs_work % 60;
+
+    total_late = total_late + late; //? same man di   
+    total_late_hrs = total_late / 60;
+    total_late_min = total_late % 60;
+
+    total_undertime = total_undertime + undertime;//? same man di
+    total_undertime_hrs = total_undertime / 60;
+    total_undertime_min = total_undertime % 60;
+}
+
+void display_day (){
+    g(10, 13 + day);p("%d", time_in_hrs);
+    g(11, 13 + day);p(":");
+    g(12, 13 + day);p("%0.2d", time_in_min);
+    g(20, 13 + day);p("%0.2d", time_out_hrs);
+    g(22, 13 + day);p(":");
+    g(23, 13 + day);p("%0.2d", time_out_min);
+    g(31, 13 + day);p("%d", hrs_work_hrs);
+    g(32, 13 + day);p(":");
+    g(33, 13 + day);p("%d", hrs_work_min);
+    g(41, 13 + day);p("%d", late_in_hrs);
+    g(42, 13 + day);p(":");
+    g(43, 13 + day);p("%d", late_in_min);
+    g(51, 13 + day);p("%d", undertime_in_hrs);
+    g(52, 13 + day);p(":");
+    g(53, 13 + day);p("%d", undertime_in_min);
+    g(26, 5);p("  ");
+    g(29, 5);p("       ");
+    g(26, 6);p("  ");
+    g(29, 6);p("       ");
+    g(2, 13 + day); p("DAY %d", day);
 }
 
 void display_total(){ //? function to display total
@@ -129,61 +175,32 @@ void display_total(){ //? function to display total
     g(30, 24);p("CONFIRM?");
 }
 
-void display_description(){//e display naton ang description sini
-    g(25, 8);p("EMPLOYEE:");
-    g(35, 8);p("%d", employee);//this line may value sya kay interchangeable ina kay ga increment aton nga employee kung mag another employee kita
-    g(25, 9);p("PAYROLL FOR THE WEEK");
-    g(25, 10);p("DAILY TIME RECORD");
-    g(2, 13);p("days");
-    g(10, 13);p("AM IN");
-    g(20, 13);p("AM OUT");
-    g(30, 13);p("HRS WORK");
-    g(40, 13);p("LATES");
-    g(50, 13);p("UNDERTIME");
+//? need ni ang reset function para ma reset ang value sa zero after sang isa ka employee
+void reset(){
+    ti = 0;
+    to = 0;
+    late = 0;
+    hrs_work = 0;
+    undertime = 0;
+    total_late = 0; 
+    total_undertime = 0;
+    weeklySalary = 0;
+    weekly_salary = 0.0;
+    salary_per_hrs = 100;
+    total_weekly_salary = 0.0;
+    total_hrs_work = 0;
+    //final_hrs_work = 0;
+    total_hrs_work_hrs = 0;
+    total_hrs_work_min = 0;
+    employee += 1;
 }
 
-void process(){ //? function to monitor all the process
-    undertime_in_hrs = undertime / 60;
-    undertime_in_min = undertime % 60;
-    late_in_hrs = late / 60;
-    late_in_min = late % 60;
-    unfloat_hrs_work = hrs_work;
-    hrs_work_hrs = hrs_work / 60;
-    hrs_work_min = unfloat_hrs_work % 60;
-    weekly_salary = (hrs_work / 60) * 100;
-    total_weekly_salary = total_weekly_salary + weekly_salary;
-    total_hrs_work = total_hrs_work + hrs_work;    
-    total_late = total_late + late;                
-    total_undertime = total_undertime + undertime;
-    total_hrs_work_hrs = total_hrs_work / 60;
-    total_hrs_work_min = total_hrs_work % 60;
-    total_late_hrs = total_late / 60;
-    total_late_min = total_late % 60;
-    total_undertime_hrs = total_undertime / 60;
-    total_undertime_min = total_undertime % 60;
-}
-
-void display_day (){
-    g(10, 13 + day);p("%d", time_in_hrs);
-    g(11, 13 + day);p(":");
-    g(12, 13 + day);p("%0.2d", time_in_min);
-    g(20, 13 + day);p("%0.2d", time_out_hrs);
-    g(22, 13 + day);p(":");
-    g(23, 13 + day);p("%0.2d", time_out_min);
-    g(31, 13 + day);p("%d", hrs_work_hrs);
-    g(32, 13 + day);p(":");
-    g(33, 13 + day);p("%d", hrs_work_min);
-    g(41, 13 + day);p("%d", late_in_hrs);
-    g(42, 13 + day);p(":");
-    g(43, 13 + day);p("%d", late_in_min);
-    g(51, 13 + day);p("%d", undertime_in_hrs);
-    g(52, 13 + day);p(":");
-    g(53, 13 + day);p("%d", undertime_in_min);
-    g(26, 5);printf("  ");
-    g(29, 5);printf("       ");
-    g(26, 6);printf("  ");
-    g(29, 6);printf("       ");
-    g(2, 13 + day); p("DAY %d", day);
+void erase(){ //? function for erase or tampering previous display
+    g(26, 5);p("  ");
+    g(29, 5);p("       ");
+    g(26, 6);p("  ");
+    g(29, 6);p("       ");
+    g(2, 7);p("INVALID INPUT");
 }
 
 void timeIn_timeOut(){
@@ -191,80 +208,71 @@ void timeIn_timeOut(){
     loop:
     for (day = 1; day < 6; day ++){
         time_in_again:
-        g(3, 5);printf("HOURS IN");
-        g(11, 5);printf(":");
-        g(13, 5);printf("MINUTES IN");
-        g(28, 5);printf(":");
-        g(2, 6);printf("HOURS OUT");
-        g(11, 6);printf(":");
-        g(13, 6);printf("MINUTES OUT");
-        g(28, 6);printf(":");
-        g(26, 5);scanf("%d", &time_in_hrs);
-        g(2, 7);printf("                       ");
+        g(3, 5);p("HOURS IN :");
+        g(13, 5);p(" MINUTES IN");
+        g(2, 6);p("HOURS OUT :"); 
+        g(13, 6);p(" MINUTES OUT");
+        g(28, 5);p(":");//colon for time in
+        g(28, 6);p(":");// colon for time out
+        g(26, 5);s("%d", &time_in_hrs);
+        g(2, 7);p("                       ");
         if (time_in_hrs < 5 || time_in_hrs > 12){ //so nag add ko sang condition nga sa time in hour palang gina limit nya na ang invalid
-            g(26, 5);printf("  ");
-            g(2, 7);printf("INVALID INPUT");
+            g(26, 5);p("  ");
+            g(2, 7);p("INVALID INPUT");
             goto time_in_again;
         }
         timein_min_again:
         g(29, 5);scanf("%d", &time_in_min);
         g(2, 7);printf("                       ");
         if (time_in_min < 0 || time_in_min > 59){ //same here gina limit nya ang invalid sa time in minutes 
-            g(29, 5);printf("       ");
-            g(2, 7);printf("INVALID INPUT");
+            g(29, 5);p("       ");
+            g(2, 7);p("INVALID INPUT");
             goto timein_min_again;
         }
-        g(2, 7);printf("                 ");
+        g(2, 7);p("                 ");
         ti = time_in_hrs * 60 + time_in_min;
         if (time_in_hrs > 4 && time_in_hrs < 13 && time_in_min > -1 && time_in_min < 60){
             if (ti > 570 && ti < 721){ // scenario 1.0 if employee time in 9:31 and above which means ABSENT
                 if (day < 6){
-                    g(10, 13);p("AM IN");
                     g(9, 13 + day);p("%0.2d", time_in_hrs);
                     g(11, 13 + day);p(":"); 
                     g(12, 13 + day);p("%0.2d", time_in_min);
-                    g(20, 13);p("AM OUT");
                     g(21, 13 + day);p("0:0");
-                    g(30, 13);p("HRS WORK");
                     g(31, 13 + day);p("0:0");
-                    g(40, 13);p("LATES");
                     g(41, 13 + day);p("4:0");
-                    g(50, 13);p("UNDERTIME");
                     g(51, 13 + day);p("0:0");
                     g(26, 5);printf("  ");
                     g(29, 5);printf("       ");
-                    g(26, 6);printf("  ");
-                    g(29, 6);printf("       ");
                     g(2, 13+day); p("DAY %d", day);
                     day++;
                     if (day == 6){
-                        display_total();
                         break;
                     }
                     goto time_in_again;
                 } 
-            }
+            } //if false ma procced sya sa time out
+
             time_out_again:
-            g(26, 6);scanf("%d", &time_out_hrs);
-            g(2, 7);printf("                       ");
+            g(26, 6);s("%d", &time_out_hrs);
+            g(2, 7);p("                       ");
             if (time_out_hrs < 5 || time_out_hrs > 12){//so nag add ko sang condition nga sa time in hour palang gina limit nya na ang invalid
-                g(26, 6);printf("  ");
-                g(2, 7);printf("INVALID INPUT");
+                g(26, 6);p("  ");
+                g(2, 7);p("INVALID INPUT");
                 goto time_out_again;
             }
             timeout_min_again:
-            g(29, 6);scanf("%d", &time_out_min);
-            g(2, 7);printf("                       ");
+            g(29, 6);s("%d", &time_out_min);
+            g(2, 7);p("                       ");
             if (time_out_min < 0 || time_out_min > 59){//same here gina limit nya ang invalid sa time in minutes
-                g(29, 6);printf("       ");
-                g(2, 7);printf("INVALID INPUT");
+                g(29, 6);p("       ");
+                g(2, 7);p("INVALID INPUT");
                 goto timeout_min_again;
             }
             to = time_out_hrs * 60 + time_out_min;
             if (ti > 299 && ti < 451 && to > 689 && to < 721 ){ // scenario 2.0 no late no undertime
                 late = 0;
                 undertime = 0;
-                hrs_work = 240 - undertime - late;
+                hrs_work = 240;
                 process();
                 if (day < 6){
                     display_day();
@@ -280,7 +288,7 @@ void timeIn_timeOut(){
                 late = 0; 
                 undertime = 690 - to;
                 hrs_work = 240 - undertime - late;
-               process();
+                process();
                 if (day < 6){
                     display_day();
                     day ++;
