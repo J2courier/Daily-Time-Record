@@ -5,56 +5,37 @@
 #define s scanf//as well as diri 's' man
 
 //global variables:
-int weeklySalary = 0;
 int employee = 1;
 int day = 1;
-int description = 1;
+
 int ti;
-int to; //ti - time in, to - time out
-int total_undertime = 0;
-int salary_per_hrs = 100;
-int total_late = 0;
-int unfloat_hrs_work; //unfloat hours work gamiton tani sa pag calculate sang hours work sa modulo
-
-//this is float incase there's a decimal in result, para sure gid
-float hrs_work = 0;
-float totalWorkhours = 0.0;
-float total_weekly_salary = 0.0;
-float weekly_salary = 0.0;
-float total_work_hours = 0.0;
-int late = 0;
-int undertime = 0;
-int total_hrs_work = 0;
-//int final_hrs_work = 0;
-
-//variable for conversion of total late && undertime
-int total_late_hrs;
-int total_late_min;
-int total_undertime_hrs;
-int total_undertime_min;
-
-//varibale for conversion of late && undertime
-int undertime_in_hrs;
-int undertime_in_min;
-int late_in_hrs;
-int late_in_min;
-
-//variable for conversion of time in time out
+int to; 
 int time_in_hrs;
 int time_in_min;
 int time_out_hrs;
 int time_out_min;
-
-//variable for conversion of total hours work
-int total_hrs_work_min;
-int total_hrs_work_hrs;
-
-//variable for conversion of hours work && weekly salary
+int late = 0;
+int undertime = 0;
+int late_in_hrs;
+int late_in_min;
+int undertime_in_hrs;
+int undertime_in_min;
 int hrs_work_hrs;
 int hrs_work_min;
-int weekly_salary_hrs;
-int weekly_salary_min;
-//variable for answer
+int total_late = 0;
+int total_undertime = 0;
+int total_hrs_work = 0;
+int unfloat_hrs_work; 
+int total_late_hrs;
+int total_late_min;
+int total_undertime_hrs;
+int total_undertime_min;
+int total_hrs_work_min;
+int total_hrs_work_hrs;
+float hrs_work = 0;
+float total_weekly_salary = 0.0;
+float daily_salary = 0.0;
+float total_work_hours = 0.0;
 char ans;
 
 void gotoxy(int x, int y){ //? function for gotoxy
@@ -77,7 +58,7 @@ void display_description(){//e display naton ang description sini
     g(55, 11);p("UNDERTIME");
 }
 
-void    compute(){ //? function to monitor all the process
+void compute(){ //? function to monitor all the process
     undertime_in_hrs = undertime / 60;  //? e convert ta ang undertime nga minutes form into hours form
     undertime_in_min = undertime % 60;  //? e convert ta ang undertime nga minutes form into remaining minutes
 
@@ -88,9 +69,9 @@ void    compute(){ //? function to monitor all the process
     hrs_work_hrs = hrs_work / 60; //? convertion man ni sa para ma display iya hrs work
     hrs_work_min = unfloat_hrs_work % 60; //? unfloat_hrs_work is similar lang sa hrs_work data type lang nag lain
 
-    weekly_salary = (hrs_work / 60) * 100; //? process para ma kuha iya nga weekly salary, per day ini
+    daily_salary = (hrs_work / 60) * 100; //? process para ma kuha iya nga weekly salary, per day ini
 
-    total_weekly_salary = total_weekly_salary + weekly_salary;//? add ta ang total_weekly salary per day para after sang day 5 ma kuha ta ang total, no need to convert kay money ini
+    total_weekly_salary = total_weekly_salary + daily_salary;//? add ta ang total_weekly salary per day para after sang day 5 ma kuha ta ang total, no need to convert kay money ini
     
     total_hrs_work = total_hrs_work + hrs_work; //? add taman iya hrs work per day para after day 5 ma total naton iya hours work
     total_hrs_work_hrs = total_hrs_work / 60;
@@ -122,9 +103,7 @@ void display_day (){
     g(57, 11 + day);p(":");
     g(58, 11 + day);p("%d", undertime_in_min);
     g(26, 2);p("       "); //? kada success nga input gina erase nya ang time in time out
-    g(29, 2);p("       ");
     g(26, 3);p("       ");
-    g(29, 3);p("       ");
     g(2, 11 + day); p("DAY %d", day);
 }
 
@@ -184,12 +163,9 @@ void reset(){
     undertime = 0;
     total_late = 0; 
     total_undertime = 0;
-    weeklySalary = 0;
-    weekly_salary = 0.0;
-    salary_per_hrs = 100;
+    daily_salary = 0.0;
     total_weekly_salary = 0.0;
     total_hrs_work = 0;
-    //final_hrs_work = 0;
     total_hrs_work_hrs = 0;
     total_hrs_work_min = 0;
     employee += 1;
