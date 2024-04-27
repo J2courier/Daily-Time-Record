@@ -172,11 +172,11 @@ void reset(){
 }
 
 void erase(){ //? function for erase or tampering previous display
-    g(26, 5);p("  ");
-    g(29, 5);p("       ");
-    g(26, 6);p("  ");
-    g(29, 6);p("       ");
-    g(2, 7);p("INVALID INPUT");
+    g(26, 2);p("  ");
+    g(29, 2);p("       ");
+    g(26, 3);p("  ");
+    g(29, 3);p("       ");
+    g(2, 4);p("INVALID INPUT");
 }
 
 void timeIn_timeOut(){
@@ -227,8 +227,7 @@ void timeIn_timeOut(){
                     goto time_in_again;
                 } 
             } //if false ma procced sya sa time out
-
-            time_out_again: //? goto 
+            time_out_again: //? goto time out again
             g(26, 3);s("%d", &time_out_hrs); //? kuha sang input sa time out
             g(2, 4);p("                       "); //? i-erase ang invalid input nga naka sulat
             if (time_out_hrs < 5 || time_out_hrs > 12){//?sentinel para kung valid iya gin input nga numbers
@@ -248,7 +247,7 @@ void timeIn_timeOut(){
             if (ti > 299 && ti < 451 && to > 689){ // scenario 2.0 no late no undertime time in 300-450 = 5:00-7:30 and time out 11:30-12:00
                 late = 0;
                 undertime = 0;
-                hrs_work = 240;
+                hrs_work = 240; 
                 compute();
                 if (day < 6){
                     display_day();
@@ -287,22 +286,24 @@ void timeIn_timeOut(){
                     goto time_in_again;
                 }
             }
-            if (ti > 299 && ti < 571 && to > 300 && to < 690){ //scenario 5 late with udertime
+            if (ti > 299 && ti < 571 && to > 570 && to < 690){ //scenario 5 late with udertime
                 late = ti - 450; //240 is 4 hours
                 undertime = 690 - to;
                 hrs_work = 240 - undertime - late;
                 compute();
                 if (day < 6){
-                    display_day();
+                    display_day();  
                     day ++;
                     if (day == 6){
                         break;
                     }
                     goto time_in_again;
                 }
-            } else {//this is for invalid ma time in time out sa liwat
-                erase();
-                goto time_in_again;
+            } else {//this is for invalid in time out ma time in time out sa liwat
+                g(26, 3);p("  ");
+                g(29, 3);p("       ");
+                g(2, 4);p("INVALID INPUT");
+                goto time_out_again;
             }
         } else {//in case mag invalid sa sentinel nga condition ma time in sya liwat as well as time out
             erase();
